@@ -21,7 +21,7 @@ end
 ####_1.3._###
 puts name+", введите команду на Ruby"
 r_command = gets
-#system ("ruby -e "+r_command)
+system ("ruby -e "+r_command) #ВАЖНО. Экранируем кавычки. Пример: puts \"Hello World\"
 
 puts name+", введите команду ОС" #ls
 oc_command = gets.chomp
