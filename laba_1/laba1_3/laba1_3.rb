@@ -39,4 +39,4 @@ def menu(task,array)
 end
 
 menu(task,array)
-#ruby laba1_3.rb ./array.txt 1
+#ruby laba1_3.rb ./array.txt 1 вызывается из папки с файлом ( . )
