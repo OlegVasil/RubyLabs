@@ -50,7 +50,7 @@ end
 task = menu_list
 array = input_choice
 
-def results(task,array) #Вывод резульатов 
+def results(task,array) #Вывод результатов 
   case task
   when 1
     puts ("Индекс минимального элемента: #{min_elem_index(array)}")
