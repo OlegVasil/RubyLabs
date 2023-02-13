@@ -13,10 +13,9 @@
 
 def count_elem_interval(array, a, b) #14 - Кол-во элементов на интервале
   if array.length >= b && a<b
-    return b-a-1
+    b-a-1
   else
-    puts "Неправильно задан интервал."
-    return 0
+    -1
   end
 end
 
@@ -26,15 +25,19 @@ def elem_between_first_and_last_min(array) #26 - Подсчет кол-ва эл
   first_index = array.index(min)
   last_index = array.rindex(min)
   if last_index == first_index
-    puts "Тут только одно вхождение минимума."
+    -1
   else
-    return last_index - first_index - 1
+    last_index - first_index - 1
   end
 end
 
 
 def count_elem_in_interval(array, a, b) #38 - Подсчет кол-ва элементов, значение которых принадлежит отрезку a...b
-  array.select { |element| element > a && element < b }.size
+  if a<b
+    -1
+  else
+    array.count { |element| element > a && element < b } #count лучше :)
+  end
 end
 
 
@@ -89,14 +92,28 @@ def results(task,array) #Вывод результатов
     a = array[0]
     b = array[1]
     new_array = array.drop(2)
-    puts "Количество элементов на интервале #{a}...#{b}: #{count_elem_interval(new_array,a,b)} "
+    if count_elem_interval(new_array,a,b) == -1
+      puts "Неккоректный ввод"
+    else
+      puts "Количество элементов на интервале #{a}...#{b}: #{count_elem_interval(new_array,a,b)} "
+    end
   when 3
-    puts "Количество элеменов между первым и последним минимальным: #{elem_between_first_and_last_min(array)}"
+    if elem_between_first_and_last_min(array) == -1
+      puts "Тут только одно вхождение минимума"
+    else
+      puts "Количество элеменов между первым и последним минимальным: #{elem_between_first_and_last_min(array)}"
+    end
+
   when 4
     a = array[0]
     b = array[1]
     new_array = array.drop(2)
-    puts "Количество элементов, значение которых принадлежит отрезку #{a}...#{b}: #{count_elem_in_interval(new_array,a,b)} "
+    if count_elem_in_interval(new_array,a,b) == -1
+      puts "Неккоректный ввод"
+    else
+      puts "Количество элементов, значение которых принадлежит отрезку #{a}...#{b}: #{count_elem_in_interval(new_array,a,b)} "
+    end
+    
   when 5
     puts "Еще не готово"
   end
