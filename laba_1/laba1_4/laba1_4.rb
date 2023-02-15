@@ -76,7 +76,14 @@ def input_choice(task) #Менюшка для выбора способа вво
     puts "Вы выбрали файлы. \n\nУчтите, файл должен лежать в директории с программой. \nВведите название\n"
     input_file = "./ #{gets.chomp}"
     File.open(input_file)
-    array = input_file.readline.split(" ").map(&:to_i)
+    if task == 5
+      list1 = file.readline.split(' ').map(&:to_i)
+      list2 = file.readline.split(' ').map(&:to_i)
+      return list1,list2
+    else
+      array = file.readline.split(' ').map(&:to_i)
+      return array
+    end
   when 2
     puts "Вы выбрали ручной ввод."
     puts()
