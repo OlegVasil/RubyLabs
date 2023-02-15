@@ -74,8 +74,8 @@ def input_choice(task) #Менюшка для выбора способа вво
   case answer
   when 1
     puts "Вы выбрали файлы. \n\nУчтите, файл должен лежать в директории с программой. \nВведите название\n"
-    input_file = "./ #{gets.chomp}"
-    File.open(input_file)
+    input_file = "./#{gets.chomp}"
+    file = File.open(input_file)
     if task == 5
       list1 = file.readline.split(' ').map(&:to_i)
       list2 = file.readline.split(' ').map(&:to_i)
