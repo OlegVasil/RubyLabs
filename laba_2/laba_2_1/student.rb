@@ -13,6 +13,11 @@ class Student
     @mail = mail
     @git = git
   end
+  
+  #Переопределил метод чтобы красиво выводилось
+  def to_s
+    "ID: #{id}, ФИО: #{full_name}, телефон: #{phone}, telegram: #{telegram}, mail: #{mail}, git: #{git} "
+  end
 
   #ФИО
   def full_name
@@ -23,3 +28,4 @@ class Student
     end
   end
 end
+
