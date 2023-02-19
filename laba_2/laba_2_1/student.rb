@@ -5,9 +5,9 @@ class Student
   #Конструктор данного класса
   def initialize(id, surname, first_name, patronymic=nil, phone=nil, telegram=nil, mail=nil, git=nil)
     @id = id
-    @surname = surname
+    @last_name = last_name
     @first_name = first_name
-    @patronymic = patronymic
+    @surname = surname
     @phone = phone
     @telegram = telegram
     @mail = mail
@@ -16,10 +16,10 @@ class Student
 
   #ФИО
   def full_name
-    if @patronymic
-      "#{@surname} #{@first_name} #{@patronymic}"
+    if @surname
+      "#{@last_name} #{@first_name} #{@surname}"
     else
-      "#{@surname} #{@first_name}"
+      "#{@last_name} #{@first_name}"
     end
   end
 end
