@@ -1,6 +1,6 @@
 class Student
   #С помощью данного метода реализован и геттер и сеттер
-  attr_accessor :id, :surname, :first_name, :patronymic, :phone, :telegram, :mail, :git
+  attr_accessor :id, :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
 
   #Конструктор данного класса
   def initialize(id, surname, first_name, patronymic=nil, phone=nil, telegram=nil, mail=nil, git=nil)
