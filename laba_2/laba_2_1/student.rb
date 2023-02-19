@@ -3,7 +3,7 @@ class Student
   attr_accessor :id, :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
 
   #Конструктор данного класса
-  def initialize(id, surname, first_name, patronymic=nil, phone=nil, telegram=nil, mail=nil, git=nil)
+  def initialize(id, last_name, first_name, surname=nil, phone=nil, telegram=nil, mail=nil, git=nil)
     @id = id
     @last_name = last_name
     @first_name = first_name
