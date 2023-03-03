@@ -98,11 +98,17 @@ class Student
     end
   end
 
+  def set_contacts(contacts)
+    self.phone = contacts[:phone] if contacts.key?(:phone)
+    self.telegram = contacts[:telegram] if contacts.key?(:telegram)
+    self.mail = contacts[:mail] if contacts.key?(:mail)
+  end
+
   #Переопределил метод чтобы красиво выводилось
   def to_s
     " ID: #{id}\n ФИО: #{full_name}\n Телефон: #{phone}\n telegram: #{telegram}\n mail: #{mail}\n git: #{git} "
   end
-
+  
   #ФИО
   def full_name
     "#{@last_name} #{@first_name} #{@surname}"
