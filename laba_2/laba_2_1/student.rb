@@ -8,44 +8,69 @@ class Student
     @surname = surname
   end
 
+  #Валидация полей
+  def self.is_id?(id)
+    id.match(/^\d+$/)
+  end
+
+  def self.is_name?(name)
+    name.match(/^[А-Яа-я A-Za-z]+$/)
+  end
+
+  def self.is_telegram?(telegram)
+    telegram.match(/^[A-Za-z\d_-]+$/)
+  end
+
+  def self.is_mail?(mail)
+    mail.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
+  end
+
+  def self.is_git?(git)
+    git.match(/^[A-Za-z\d_-]+$/)
+  end
+
+  def self.is_phone?(phone)
+    phone.match(/^[\d{10}]+$/)
+  end
+
   #Сеттеры полей
-  def id=(value)
-    if value.is_a?(Integer)
-      @id = value
+  def id=(id)
+    if Student.is_id?(id) && !id.nil?
+      @id = id
     else
-      raise ArgumentError, "Неккоректный id: #{value}"
+      raise ArgumentError, "Неккоректный id: #{id}"
     end
   end
 
-  def phone=(value)
-    if value.is_a?(String)
-      @phone = value
+  def phone=(phone)
+    if Student.is_phone?(phone) && !phone.nil?
+      @phone = phone
     else
-      raise ArgumentError, "Неккоректный телефон: #{value}"
+      raise ArgumentError, "Неккоректный телефон: #{phone}"
     end
   end
 
-  def telegram=(value)
-    if value.is_a?(String)
-      @telegram = value
+  def telegram=(telegram)
+    if Student.is_telegram?(telegram) && !telegram.nil?
+      @telegram = telegram
     else
-      raise ArgumentError, "Неккоректный телеграм #{value}"
+      raise ArgumentError, "Неккоректный телеграм #{telegram}"
     end
   end
 
-  def email=(value)
-    if value.is_a?(String)
-      @email = value
+  def mail=(mail)
+    if Student.is_mail?(mail) && !mail.nil?
+      @mail = mail
     else
-      raise ArgumentError, "Неккоректный email: #{value}"
+      raise ArgumentError, "Неккоректный mail: #{mail}"
     end
   end
 
-  def git=(value)
-    if value.is_a?(String)
-      @git = value
+  def git=(git)
+    if Student.is_git?(git) && !git.nil?
+      @git = git
     else
-      raise ArgumentError, "Неккоректный гит: #{value}"
+      raise ArgumentError, "Неккоректный гит: #{git}"
     end
   end
 
@@ -59,5 +84,3 @@ class Student
     "#{@last_name} #{@first_name} #{@surname}"
   end
 end
-
-
