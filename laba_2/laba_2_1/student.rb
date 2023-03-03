@@ -74,6 +74,30 @@ class Student
     end
   end
 
+  #Валидация любых контактов
+  def validate_all
+    validate_contacts
+    validate_git
+  end
+
+  #Валидация гитов
+  def validate_git
+    if !git.nil?
+      puts("git: #{git}")
+    else
+      raise "Нет гита :c"
+    end
+  end
+
+  #Валидация контактов
+  def validate_contacts
+    if !(phone || telegram || mail).nil?
+     puts("Телефон: #{phone}, Телеграм: #{telegram}, Почта: #{mail}")
+    else
+     raise "Контактов нема :c"
+    end
+  end
+
   #Переопределил метод чтобы красиво выводилось
   def to_s
     " ID: #{id}\n ФИО: #{full_name}\n Телефон: #{phone}\n telegram: #{telegram}\n mail: #{mail}\n git: #{git} "
