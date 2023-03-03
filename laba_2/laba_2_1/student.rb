@@ -1,31 +1,63 @@
 class Student
-  #С помощью данного метода реализован и геттер и сеттер
-  attr_accessor :id, :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
+  #Устанавливаем доступ к методам только на чтение (геттер, в моем понимании)
+  attr_reader :id, :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
 
-  #Конструктор данного класса
-  def initialize(id, last_name, first_name, surname=nil, phone=nil, telegram=nil, mail=nil, git=nil)
-    @id = id
+  def initialize(last_name, first_name, surname)
     @last_name = last_name
     @first_name = first_name
     @surname = surname
-    @phone = phone
-    @telegram = telegram
-    @mail = mail
-    @git = git
   end
-  
+
+  #Сеттеры полей
+  def id=(value)
+    if value.is_a?(Integer)
+      @id = value
+    else
+      raise ArgumentError, "Неккоректный id: #{value}"
+    end
+  end
+
+  def phone=(value)
+    if value.is_a?(String)
+      @phone = value
+    else
+      raise ArgumentError, "Неккоректный телефон: #{value}"
+    end
+  end
+
+  def telegram=(value)
+    if value.is_a?(String)
+      @telegram = value
+    else
+      raise ArgumentError, "Неккоректный телеграм #{value}"
+    end
+  end
+
+  def email=(value)
+    if value.is_a?(String)
+      @email = value
+    else
+      raise ArgumentError, "Неккоректный email: #{value}"
+    end
+  end
+
+  def git=(value)
+    if value.is_a?(String)
+      @git = value
+    else
+      raise ArgumentError, "Неккоректный гит: #{value}"
+    end
+  end
+
   #Переопределил метод чтобы красиво выводилось
   def to_s
-    "ID: #{id}, ФИО: #{full_name}, телефон: #{phone}, telegram: #{telegram}, mail: #{mail}, git: #{git} "
+    " ID: #{id}\n ФИО: #{full_name}\n Телефон: #{phone}\n telegram: #{telegram}\n mail: #{mail}\n git: #{git} "
   end
 
   #ФИО
   def full_name
-    if @surname
-      "#{@last_name} #{@first_name} #{@surname}"
-    else
-      "#{@last_name} #{@first_name}"
-    end
+    "#{@last_name} #{@first_name} #{@surname}"
   end
 end
+
 
