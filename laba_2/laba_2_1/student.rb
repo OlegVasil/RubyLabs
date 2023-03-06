@@ -1,7 +1,8 @@
 class Student
-  #Устанавливаем доступ к методам только на чтение (геттер, в моем понимании)
+  #Устанавливаем доступ к методам только на чтение (геттер, в моем понимании) - 
+  #это не доступ к методам, это краткое объявление метода, типа вместо описания кучи стандартных геттеров, ты пишешь интерпретатору, какие геттеры ОН напишет сам
   attr_reader :id, :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
-
+#  а где остальные поля конструктора? мы же будем создавать записи с в том числе уже заполненными полями
   def initialize(last_name, first_name, surname)
     @last_name = last_name
     @first_name = first_name
@@ -75,6 +76,7 @@ class Student
   end
 
   #Валидация любых контактов
+  # этот метод должен возвращать тру фолс
   def validate_all
     validate_contacts
     validate_git
@@ -83,9 +85,9 @@ class Student
   #Валидация гитов
   def validate_git
     if !git.nil?
-      puts("git: #{git}")
+      puts("git: #{git}") # ГОВНОКОДИЩЕЕ
     else
-      raise "Нет гита :c"
+      raise "Нет гита :c" # зачем непонятное исключение, верни тру фолс и назови метод соответсвующе
     end
   end
 
