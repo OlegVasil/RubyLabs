@@ -1,11 +1,17 @@
 class Student
-  #Устанавливаем доступ к методам только на чтение (геттер, в моем понимании)
+  #Краткое объявление метода
   attr_reader :id, :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
 
-  def initialize(last_name, first_name, surname)
+  def initialize(last_name, first_name, surname, options = {})
     @last_name = last_name
     @first_name = first_name
     @surname = surname
+    #options = {} - аргумент конструктора в форме ХЭШа
+    @id = options[:id]
+    @phone = options[:phone]
+    @telegram = options[:telegram]
+    @mail = options[:mail]
+    @git = options[:git]
   end
 
   #Валидация полей
@@ -74,27 +80,25 @@ class Student
     end
   end
 
-  #Валидация любых контактов
+  #Валидация контактов с true или false
+  def has_git?
+    !git.nil?
+  end
+
+  def has_contact?
+    !phone.nil? || !telegram.nil? || !mail.nil?
+  end
+
   def validate_all
-    validate_contacts
-    validate_git
+    has_git? && has_contact?
   end
 
-  #Валидация гитов
-  def validate_git
-    if !git.nil?
-      puts("git: #{git}")
-    else
-      raise "Нет гита :c"
-    end
-  end
-
-  #Валидация контактов
+  #Я просто хочу чтобы это было и красиво выводилось
   def validate_contacts
-    if !(phone || telegram || mail).nil?
+    if validate_all
      puts("Телефон: #{phone}, Телеграм: #{telegram}, Почта: #{mail}")
     else
-     raise "Контактов нема :c"
+      puts "Контактов нема :c"
     end
   end
 
@@ -108,9 +112,11 @@ class Student
   def to_s
     " ID: #{id}\n ФИО: #{full_name}\n Телефон: #{phone}\n telegram: #{telegram}\n mail: #{mail}\n git: #{git} "
   end
-  
+
   #ФИО
   def full_name
     "#{@last_name} #{@first_name} #{@surname}"
   end
 end
+
+
