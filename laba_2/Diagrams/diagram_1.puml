@@ -1,0 +1,45 @@
+@startuml
+
+ class Student {
+     -id: Integer
+     -last_name: String
+     -first_name: String
+     -surname: String
+     -phone: String
+     -telegram: String
+     -mail: String
+     -git: String
+--
+     +{static}is_id?(String): Boolean
+     +{static}is_name?(String): Boolean
+     +{static}is_telegram?(String): Boolean
+     +{static}is_git?(String): Boolean
+     +{static}is_phone?(string): Boolean
+     +initialize(String, String, String, Hash)
+     +has_contact?(): Boolean
+     +has_git?(): Boolean
+     +validate_all(): Boolean
+     +validate_contacts(String)
+     +set_contacts(Hash)
+     +to_s(): String
+     .. Геттеры ..
+     +id(): Integer
+     +last_name(): String
+     +first_name(): String
+     +surname(): String
+     +phone(): String
+     +telegram(): String
+     +mail(): String
+     +git(): String
+     .. Сеттеры ..
+     +id=(Integer)
+     +last_name=(String)
+     +first_name=(String)
+     +surname=(String)
+     +phone=(String)
+     +telegram=(String)
+     +mail=(String)
+     +git=(String)
+    }
+
+ @enduml
