@@ -2,16 +2,17 @@ class Student
   #Краткое объявление метода
   attr_reader :id, :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
 
-  def initialize(last_name, first_name, surname, options = {})
-    @last_name = last_name
-    @first_name = first_name
-    @surname = surname
+  def initialize(options={})
     #options = {} - аргумент конструктора в форме ХЭШа
-    @id = options[:id]
-    @phone = options[:phone]
-    @telegram = options[:telegram]
-    @mail = options[:mail]
-    @git = options[:git]
+    raise ArgumentError, 'Отсутствуют необходимые поля!' unless options.key?(:last_name) && options.key?(:first_name) && options.key?(:surname)
+    self.last_name = options[:last_name]
+    self.first_name = options[:first_name]
+    self.surname = options[:surname]
+    self.id = options[:id]
+    self.phone = options[:phone]
+    self.telegram = options[:telegram]
+    self.mail = options[:mail]
+    self.git = options[:git]
   end
 
   #Валидация полей
@@ -40,6 +41,31 @@ class Student
   end
 
   #Сеттеры полей
+  def last_name=(last_name)
+    if Student.is_name?(last_name) && !last_name.nil?
+      @last_name = last_name
+    else
+      raise ArgumentError, "Неккоректная фамилия: #{last_name}"
+    end
+  end
+
+
+  def first_name=(first_name)
+    if Student.is_name?(first_name) && !first_name.nil?
+      @first_name = first_name
+    else
+      raise ArgumentError, "Неккоректное имя: #{first_name}"
+    end
+  end
+
+  def surname=(surname)
+    if Student.is_name?(surname)&& !surname.nil?
+      @surname = surname
+    else
+      raise ArgumentError, "Неккорректное отчество: #{surname}"
+    end
+  end
+
   def id=(id)
     if Student.is_id?(id) && !id.nil?
       @id = id
@@ -93,14 +119,7 @@ class Student
     has_git? && has_contact?
   end
 
-  #Я просто хочу чтобы это было и красиво выводилось
-  def validate_contacts
-    if validate_all
-     puts("Телефон: #{phone}, Телеграм: #{telegram}, Почта: #{mail}")
-    else
-      puts "Контактов нема :c"
-    end
-  end
+  #Здесь был метод с puts
 
   def set_contacts(contacts)
     self.phone = contacts[:phone] if contacts.key?(:phone)
@@ -110,13 +129,15 @@ class Student
 
   #Переопределил метод чтобы красиво выводилось
   def to_s
-    " ID: #{id}\n ФИО: #{full_name}\n Телефон: #{phone}\n telegram: #{telegram}\n mail: #{mail}\n git: #{git} "
+    res = "#{last_name} #{first_name} #{surname}"
+    res += " id=#{id}" unless id.nil?
+    res += " phone=#{phone}" unless phone.nil?
+    res += " git = #{git}" unless git.nil?
+    res += " telegram=#{telegram}" unless telegram.nil?
+    res += " mail=#{mail}" unless mail.nil?
+    res
   end
-
-  #ФИО
-  def full_name
-    "#{@last_name} #{@first_name} #{@surname}"
-  end
+  
 end
 
 
