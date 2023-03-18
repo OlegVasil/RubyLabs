@@ -1,18 +1,25 @@
+require 'json'
+
 class Student
   #Краткое объявление метода
-  attr_reader :id, :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
+  attr_accessor :id
+  attr_reader :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
 
-  def initialize(options={})
+  def initialize(last_name:, first_name:, surname:, id:nil, phone:nil, telegram:nil, mail:nil, git:nil)
     #options = {} - аргумент конструктора в форме ХЭШа
-    raise ArgumentError, 'Отсутствуют необходимые поля!' unless options.key?(:last_name) && options.key?(:first_name) && options.key?(:surname)
-    self.last_name = options[:last_name]
-    self.first_name = options[:first_name]
-    self.surname = options[:surname]
-    self.id = options[:id]
-    self.phone = options[:phone]
-    self.telegram = options[:telegram]
-    self.mail = options[:mail]
-    self.git = options[:git]
+    raise ArgumentError, 'Отсутствуют необходимые поля!' if first_name.nil? || last_name.nil?|| surname.nil?
+    self.last_name = last_name
+    self.first_name = first_name
+    self.surname = surname
+    self.id = id
+    self.git = git
+    set_contacts(**{telegram:telegram, phone: phone, mail:mail})
+  end
+
+  #Конструктор строки
+  def self.from_json_str(str)
+    data=JSON.parse(str).transform_keys(&:to_sym)
+    Student.new(**data)
   end
 
   #Валидация полей
@@ -42,68 +49,38 @@ class Student
 
   #Сеттеры полей
   def last_name=(last_name)
-    if Student.is_name?(last_name) && !last_name.nil?
-      @last_name = last_name
-    else
-      raise ArgumentError, "Неккоректная фамилия: #{last_name}"
-    end
+    raise ArgumentError, "Неккоректная фамилия #{last_name}" unless last_name.nil? || Student.is_name?(last_name)
+    @last_name = last_name
   end
 
-
   def first_name=(first_name)
-    if Student.is_name?(first_name) && !first_name.nil?
-      @first_name = first_name
-    else
-      raise ArgumentError, "Неккоректное имя: #{first_name}"
-    end
+    raise ArgumentError, "Неккоректное имя: #{first_name}" unless first_name.nil? || Student.is_name?(first_name)
+    @first_name = first_name
   end
 
   def surname=(surname)
-    if Student.is_name?(surname)&& !surname.nil?
-      @surname = surname
-    else
-      raise ArgumentError, "Неккорректное отчество: #{surname}"
-    end
-  end
-
-  def id=(id)
-    if Student.is_id?(id) && !id.nil?
-      @id = id
-    else
-      raise ArgumentError, "Неккоректный id: #{id}"
-    end
+    raise ArgumentError, "Неккорректное отчество: #{surname}" unless surname.nil? || Student.is_name?(surname)
+    @surname = surname
   end
 
   def phone=(phone)
-    if Student.is_phone?(phone) && !phone.nil?
-      @phone = phone
-    else
-      raise ArgumentError, "Неккоректный телефон: #{phone}"
-    end
+    raise ArgumentError, "Неккоректный номер: #{phone}" unless phone.nil? || Student.is_phone?(phone)
+    @phone = phone
   end
 
   def telegram=(telegram)
-    if Student.is_telegram?(telegram) && !telegram.nil?
+    raise ArgumentError, "Неккоректный телеграм #{telegram}" unless telegram.nil? || Student.is_telegram?(telegram)
       @telegram = telegram
-    else
-      raise ArgumentError, "Неккоректный телеграм #{telegram}"
-    end
   end
 
   def mail=(mail)
-    if Student.is_mail?(mail) && !mail.nil?
-      @mail = mail
-    else
-      raise ArgumentError, "Неккоректный mail: #{mail}"
-    end
+    raise ArgumentError, "Неккоректный mail: #{mail}" unless mail.nil? || Student.is_mail?(mail)
+    @mail = mail
   end
 
   def git=(git)
-    if Student.is_git?(git) && !git.nil?
-      @git = git
-    else
-      raise ArgumentError, "Неккоректный гит: #{git}"
-    end
+    raise ArgumentError, "Неккоректный гит: #{git}" unless git.nil? || Student.is_git?(git)
+    @git = git
   end
 
   #Валидация контактов с true или false
@@ -119,12 +96,10 @@ class Student
     has_git? && has_contact?
   end
 
-  #Здесь был метод с puts
-
-  def set_contacts(contacts)
-    self.phone = contacts[:phone] if contacts.key?(:phone)
-    self.telegram = contacts[:telegram] if contacts.key?(:telegram)
-    self.mail = contacts[:mail] if contacts.key?(:mail)
+  def set_contacts(mail:nil, phone:nil, telegram:nil)
+    self.mail = mail
+    self.phone = phone
+    self.telegram = telegram
   end
 
   #Переопределил метод чтобы красиво выводилось
@@ -137,7 +112,18 @@ class Student
     res += " mail=#{mail}" unless mail.nil?
     res
   end
-  
 end
 
+#Валидация полей
+# def self.is_id?(id)
+#   id.match(/^\d+$/)
+# end
+# def self.from_str(str)
+#   hashed = str.split(',')
+#               .map{|v| v.split(":")}
+#               .map{|v| [v[0].to_sym, v[1]]}
+#               .to_h
+#   Student.new(hashed)
+#   #puts hashed
+# end
 
