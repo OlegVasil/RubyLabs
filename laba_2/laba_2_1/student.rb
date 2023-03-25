@@ -6,8 +6,6 @@ class Student
   attr_reader :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
 
   def initialize(last_name:, first_name:, surname:, id:nil, phone:nil, telegram:nil, mail:nil, git:nil)
-    #options = {} - аргумент конструктора в форме ХЭШа
-    raise ArgumentError, 'Отсутствуют необходимые поля!' if first_name.nil? || last_name.nil?|| surname.nil?
     self.last_name = last_name
     self.first_name = first_name
     self.surname = surname
