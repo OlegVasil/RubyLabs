@@ -3,7 +3,7 @@ require 'json'
 class Student
   #Краткое объявление метода
   attr_accessor :id
-  attr_reader :last_name, :first_name, :surname, :phone, :telegram, :mail, :git
+  attr_reader :last_name, :first_name, :surname, :phone, :telegram, :mail
 
   def initialize(last_name:, first_name:, surname:, id:nil, phone:nil, telegram:nil, mail:nil, git:nil)
     self.last_name = last_name
@@ -90,7 +90,7 @@ class Student
     !phone.nil? || !telegram.nil? || !mail.nil?
   end
 
-  def validate_all
+  def validate_all?
     has_git? && has_contact?
   end
 
@@ -112,6 +112,24 @@ class Student
   end
 end
 
+def short_name
+  "#{last_name} #{first_name[0]}.#{surname[0]}"
+end
+
+def find_git
+  "git=#{git}" unless has_git?
+end
+
+def find_contacts
+  return "phone: #{phone}" unless phone.nil?
+  return "telegram: #{telegram}" unless telegram.nil?
+  "mail: #{mail}" unless mail.nil?
+end
+
+def get_info
+  "#{short_name}, #{find_git}, #{find_contacts}"
+end
+
 #Валидация полей
 # def self.is_id?(id)
 #   id.match(/^\d+$/)
@@ -124,4 +142,3 @@ end
 #   Student.new(hashed)
 #   #puts hashed
 # end
-
