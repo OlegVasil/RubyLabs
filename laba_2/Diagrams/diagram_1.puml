@@ -1,6 +1,34 @@
 abstract class BaseStudent
 {
+#phone:String
+#mail:String
+#telegram:String
+#git:String
++id:Integer
+--
++initialize(Hash)
++has_git?:Boolean
++has_contact?:Boolean
++find_git:String
++find_contacts:String
++self.is_phone?:Boolean
++self.is_telegram?:Boolean
++self.is_mail?:Boolean
++self.is_git?:Boolean
 
+..Геттеры..
++phone():String
++mail():String
++telegram():String
++git():String
++id():Integer
+..Сеттеры..
+#telegram=(String)
+#mail=(String)
+#git=(String)
+#phone=(String)
+#set_contacts=(String)
++id=(Integer)
 }
 
 class StudentShort extends BaseStudent
@@ -8,9 +36,9 @@ class StudentShort extends BaseStudent
 short_name:String
 --
 +initialize(Integer,String)
-+init_from_student(Student):StudentShort
++self.init_from_student(Student):StudentShort
 +to_s():String
-+validate_all?: Boolean
++validate_all?(): Boolean
 
 .. Геттеры ..
 +short_name():String
@@ -25,8 +53,8 @@ first_name: String
 surname: String
 --
 +initialize(Hash)
-+from_json_str(String)
-+is_name?(String): Boolean
++self.from_json_str(String)
++self.is_name?(String): Boolean
 +get_info(): String
 +short_name(): String
 +find_git(): String
