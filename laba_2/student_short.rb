@@ -5,10 +5,9 @@ class StudentShort<BaseStudent
   public_class_method :new
 
   attr_reader :short_name
-  
   private
   attr_writer :short_name
-  
+
   public
 
   def initialize(id, str)
