@@ -2,21 +2,11 @@ class BaseStudent
 
   #Абстрактный класс
   private_class_method :new
+
   protected
 
   attr_reader :phone, :mail, :telegram
-
-  public
-  attr_reader :id, :git
-  def initialize(id: nil, phone:nil, telegram: nil, mail: nil, git:nil )
-    self.id=id
-    set_contacts(**{telegram:telegram, phone: phone, mail:mail})
-  end
-
-  #Сеттеры
-  def id=(id)
-    raise ArgumentError, "Неккоретный id #{id}" unless  id.nil? || Student.is_id?(id)
-  end
+  attr_writer :id
 
   def telegram=(telegram)
     raise ArgumentError, "Неккоректный телеграм #{telegram}" unless telegram.nil? || Student.is_telegram?(telegram)
@@ -38,9 +28,19 @@ class BaseStudent
     @phone = phone
   end
 
-  #Валидация
-  def self.is_id?(id)
-    id.match(/^\d+$/)
+  def set_contacts(mail:nil, phone:nil, telegram:nil)
+    self.mail = mail
+    self.phone = phone
+    self.telegram = telegram
+  end
+
+  public
+
+  attr_reader :id, :git
+
+  def initialize(id: nil, phone:nil, telegram: nil, mail: nil, git:nil )
+    self.id=id
+    set_contacts(**{telegram:telegram, phone: phone, mail:mail})
   end
 
   def self.is_phone?(phone)
@@ -79,11 +79,15 @@ class BaseStudent
     "mail: #{mail}" unless mail.nil?
   end
 
-  def set_contacts(mail:nil, phone:nil, telegram:nil)
-    self.mail = mail
-    self.phone = phone
-    self.telegram = telegram
-  end
-
 end
 
+
+#Сеттеры
+# def id=(id)
+#   raise ArgumentError, "Неккоретный id #{id}" unless  id.nil? || Student.is_id?(id)
+# end
+
+#Валидация
+# def self.is_id?(id)
+#   id.match(/^\d+$/)
+# end
