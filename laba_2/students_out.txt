@@ -1,0 +1,1 @@
+[{"last_name":"Иванов","first_name":"Иван","surname":"Иванович","id":1,"mail":"ivanivan@mail.ru"},{"last_name":"Александр","first_name":"Сергеевич","surname":"Пушкин","id":2,"phone":"88005553535"},{"last_name":"Михаил","first_name":"Мишустин","surname":"Михайлович","id":3,"phone":"89995057777","mail":"obmanlohov@yandex.ru"}]
