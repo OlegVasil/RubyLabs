@@ -1,7 +1,9 @@
+require_relative 'data_table'
+
 class DataList
   private_class_method :new
 
-  attr_reader :obj_list
+  attr_writer :obj_list
 
   def initialize(obj_list)
     self.obj_list=obj_list
@@ -19,12 +21,26 @@ class DataList
   def get_names;
   end
 
-  def get_data;
+  #Паттерн Паттерн
+  def get_data
+    id = 0
+    data_student = obj_list.inject([]) do  |res, object|
+      fields = [id, object.short_name, object.git, object.find_contacts]
+      row = fields.inject([]) do |row,field|
+        row<<field
+      end
+      id+=1
+      res<<row
+    end
+    DataTable.new(data_student)
   end
 
   protected
 
-  attr_writer :obj_list
+  attr_reader :obj_list
   attr_accessor :selected_items
 
+  def get_fields(object)
+    []
+  end
 end
