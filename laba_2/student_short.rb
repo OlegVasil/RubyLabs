@@ -28,5 +28,5 @@ class StudentShort<BaseStudent
     result+= "  git=#{git}" unless git.nil?
     result
   end
- 
+
 end
