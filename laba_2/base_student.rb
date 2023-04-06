@@ -68,17 +68,18 @@ class BaseStudent
     !phone.nil? || !telegram.nil? || !mail.nil?
   end
 
-  #Вывод гита и контактов
-  def find_git
-    "git=#{git}" unless has_git?
+  def validate_all?
+    has_git? && has_contact?
   end
 
   def find_contacts
-    return "phone: #{phone}" unless phone.nil?
-    return "telegram: #{telegram}" unless telegram.nil?
-    "mail: #{mail}" unless mail.nil?
+    if has_contact?
+      return "phone: #{phone}" unless phone.nil?
+      return "telegram: #{telegram}" unless telegram.nil?
+      "mail: #{mail}" unless mail.nil?
+    end
+    nil
   end
-
 end
 
 
