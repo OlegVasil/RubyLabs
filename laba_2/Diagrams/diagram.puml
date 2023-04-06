@@ -56,8 +56,8 @@ surname: String
 +self.from_json_str(String)
 +self.is_name?(String): Boolean
 +get_info(): String
-+short_name(): String
 +find_git(): String
++short_name(): String
 +to_hash(): Hash
 +to_json_str(): String
 +to_s(): String
@@ -75,19 +75,50 @@ surname: String
 
 class DataTable
 {
-+self.table
-+self.row_number
-+self.column_number
+table: Array
+row_number: Integer
+column_number: Integer
 --
-+get_item(Integer,Integer): Integer
---
-#count_column_number: Integer
-    .. Геттеры ..
-+table(): List
++initialize(Array)
++get_item(Integer,Integer): DataTable
+#count_column_number(): Integer
+.. Геттеры ..
+#table(): Array
 +row_number(): Integer
 +column_number(): Integer
-    .. Сеттеры ..
-#table=(List)
-#row_number(Integer)
-#column_number(Integer)
+.. Сеттеры ..
+#table=(Array)
+#row_number=(Integer)
+#column_number=(Integer)
 }
+
+class DataList
+{
+obj_list: Array
+selected_items: Array
+--
+-initialize(Array)
++selected(Array)
++get_selected(): Array
+#get_names()
+#get_data(): DataTable
+#get_fields(Object): Array
+
+.. Геттеры ..
+#selected_items(): Array
+#obj_list(): Array
+.. Сеттеры ..
+#selected_items=(Array)
++obj_list=(Array)
+
+}
+
+class DataListStudentShort extends DataList
+{
++initialize(Array)
++get_names(): Array
+#get_fields(Object): Array
+}
+
+DataListStudentShort o-- StudentShort
+DataTable <.. DataList
