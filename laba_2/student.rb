@@ -52,10 +52,6 @@ class Student<BaseStudent
   "#{last_name} #{first_name[0]}.#{surname[0]}"
   end
 
-  def find_git
-  "git=#{git}" unless has_git?
-  end
-
   def to_hash
   info_hash = {}
   %i[last_name first_name surname id phone telegram mail git].each do |field|
@@ -64,11 +60,17 @@ class Student<BaseStudent
   info_hash
   end
 
+  def find_git
+    "git=#{git}" unless has_git?
+  end
+
+
   def to_json_str
   JSON.generate(to_hash)
   end
 
   def to_s
+    puts git
     res = "#{last_name} #{first_name} #{surname}"
     res += " id=#{id}" unless id.nil?
     res += " phone=#{phone}" unless phone.nil?
