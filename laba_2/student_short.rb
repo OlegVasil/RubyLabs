@@ -5,6 +5,7 @@ class StudentShort<BaseStudent
   public_class_method :new
 
   attr_reader :short_name
+
   private
   attr_writer :short_name
 
@@ -24,11 +25,8 @@ class StudentShort<BaseStudent
     result = short_name
     result += " id=#{id} " unless id.nil?
     result += " #{find_contacts}"
-    result+= " #{find_git}"
+    result+= "  git=#{git}" unless git.nil?
     result
   end
-
-  def validate_all?
-    has_git? && has_contact?
-  end
+ 
 end
