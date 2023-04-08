@@ -98,7 +98,7 @@ obj_list: Array
 selected_items: Array
 --
 -initialize(Array)
-+selected(Array)
++select(Array)
 +get_selected(): Array
 #get_names()
 #get_data(): DataTable
