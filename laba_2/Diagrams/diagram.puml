@@ -123,12 +123,13 @@ class DataListStudentShort extends DataList
 class BaseStudentList
 {
 students: Array
+type_class: StudentListStrategy
 --
--initialize()
++initialize()
 +read_file(String)
 +write_to_file(String)
 +get_student_by_id(Integer):Student
-+get_n_k_student_short_list(Integer, Integer, DataList)
++get_n_k_student_short_list(Integer, Integer, DataList): DataListStudentShort
 +sorted_by_name()
 +add_student(Student)
 +replace_student_by_id(Student, Integer)
@@ -137,18 +138,27 @@ students: Array
 -get_student_new_id
 ..Геттеры..
 -students:Array
+-type_class():StudentListStrategy
 ..Сеттеры..
 -students=(Array)
++type_class=(StudentListStrategy)
 }
 
-class StudentListJSON extends BaseStudentList
+class StudentListStrategy
+{
+-initialize()
+#list_hash_from_str(String):Array
+#list_hash_to_str(Array):String
+}
+
+class StudentListJSON extends StudentListStrategy
 {
 +initialize()
 +list_hash_from_str(String):Array
 +list_has_to_str(Array):String
 }
 
-class StudentListYaml extends BaseStudentList
+class StudentListYaml extends StudentListStrategy
 {
 +initialize()
 +list_hash_from_str(String):Array
@@ -159,3 +169,4 @@ class StudentListYaml extends BaseStudentList
 DataListStudentShort o-- StudentShort
 DataTable <.. DataList
 DataList <.. BaseStudentList
+BaseStudentList *-- StudentListStrategy
