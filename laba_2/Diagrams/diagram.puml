@@ -120,40 +120,42 @@ class DataListStudentShort extends DataList
 #get_fields(Object): Array
 }
 
-class Student_list_json
+class BaseStudentList
 {
-+initialize()
-+list_hash_from_str(String):Array
-+list_has_to_str(Array):String
+students: Array
+--
+-initialize()
 +read_file(String)
 +write_to_file(String)
 +get_student_by_id(Integer):Student
-+get_k_n_stundents_short_list(Integer, Integer, DataList): DataListStudentShort
++get_n_k_student_short_list(Integer, Integer, DataList)
 +sorted_by_name()
 +add_student(Student)
 +replace_student_by_id(Student, Integer)
 +delete_student_by_id(Integer)
 +get_student_short_count:Integer
 -get_student_new_id
+..Геттеры..
+-students:Array
+..Сеттеры..
+-students=(Array)
 }
 
-class Student_list_yaml
+class StudentListJSON extends BaseStudentList
 {
 +initialize()
 +list_hash_from_str(String):Array
 +list_has_to_str(Array):String
-+read_file(String)
-+write_to_file(String)
-+get_student_by_id(Integer):Student
-+get_k_n_stundents_short_list(Integer, Integer, DataList): DataListStudentShort
-+sorted_by_name()
-+add_student(Student)
-+replace_student_by_id(Student, Integer)
-+delete_student_by_id(Integer)
-+get_student_short_count:Integer
--get_student_new_id
+}
+
+class StudentListYaml extends BaseStudentList
+{
++initialize()
++list_hash_from_str(String):Array
++list_has_to_str(Array):String
 }
 
 
 DataListStudentShort o-- StudentShort
 DataTable <.. DataList
+DataList <.. BaseStudentList
