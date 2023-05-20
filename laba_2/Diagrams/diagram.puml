@@ -165,7 +165,36 @@ class StudentListYaml extends StudentListStrategy
 +list_has_to_str(Array):String
 }
 
+class StudentDB
+{
+instance: DB
+db:: SQLite3:: Database
+--
++initialize()
++instance():DB
++execute(String, Array)
+results_as_hash=(Boolean)
+}
 
+class StudentListDB
+{
+db:DB
+--
++initialize()
++get_student_by_id(Integer): Student
++add_student(Student)
++remove_student(Integer)
++replace_student(Integer, Student)
++student_count():Integer
++get_k_n_student_short_list(Integer, Integer, DataList=nil):
+-student_fields(Student):Array
+--Геттеры--
+-db():DB
+--Сеттеры--
+-db=(DB)
+}
+
+StudentDB o-- StudentListDB
 DataListStudentShort o-- StudentShort
 DataTable <.. DataList
 DataList <.. BaseStudentList
