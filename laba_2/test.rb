@@ -2,7 +2,18 @@ require_relative 'student'
 require_relative 'student_short'
 require_relative 'data_table'
 require_relative 'data_list_student_short'
-# def read_from_txt(file_path)
+require 'sqlite3'
+require_relative 'student_list_db'
+require_relative 'db_students'
+
+connect = SQLite3::Database.new('db_student.sql')
+ans = connect.query('SELECT * FROM students')
+ans.each do |row|
+  puts row
+end
+
+
+# def resad_from_txt(file_path)
 #   raise ArgumentError, 'Файл не найден' unless File.exist?(file_path)
 #   file = File.open(file_path){|file| file.read}
 #   JSON.parse(file).inject([]) do |list, student|
@@ -43,3 +54,8 @@ require_relative 'data_list_student_short'
 # liststudentshort= DataListStudentShort.new([short_1, short_2])
 # puts liststudentshort.get_data
 # puts liststudentshort.get_names
+
+
+st = StudentListDB.new()
+st1 = st.get_student_by_id(2)
+puts(st1)
