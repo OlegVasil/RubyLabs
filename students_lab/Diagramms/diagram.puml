@@ -1,0 +1,337 @@
+abstract class BaseStudent
+{
+#phone:String
+#mail:String
+#telegram:String
+#git:String
++id:Integer
+--
++initialize(Hash)
++has_git?:Boolean
++has_contact?:Boolean
++find_git:String
++find_contacts:String
++self.is_phone?:Boolean
++self.is_telegram?:Boolean
++self.is_mail?:Boolean
++self.is_git?:Boolean
+
+..Геттеры..
++phone():String
++mail():String
++telegram():String
++git():String
++id():Integer
+..Сеттеры..
+#telegram=(String)
+#mail=(String)
+#git=(String)
+#phone=(String)
+#set_contacts=(String)
++id=(Integer)
+}
+
+class StudentShort extends BaseStudent
+{
+short_name:String
+--
++initialize(Integer,String)
++self.init_from_student(Student):StudentShort
++to_s():String
++validate_all?(): Boolean
+
+.. Геттеры ..
++short_name():String
+
+.. Сеттеры ..
++short_name=(String)
+}
+
+class Student extends BaseStudent {
+last_name: String
+first_name: String
+surname: String
+--
++initialize(Hash)
++self.from_json_str(String)
++self.is_name?(String): Boolean
++get_info(): String
++find_git(): String
++short_name(): String
++to_hash(): Hash
++to_json_str(): String
++to_s(): String
+
+    .. Геттеры ..
++last_name(): String
++first_name(): String
++surname(): String
+
+    .. Сеттеры ..
++last_name=(String)
++first_name=(String)
++surname=(String)
+}
+
+class DataTable
+{
+table: Array
+row_number: Integer
+column_number: Integer
+--
++initialize(Array)
++get_item(Integer,Integer): DataTable
+#count_column_number(): Integer
+.. Геттеры ..
+#table(): Array
++row_number(): Integer
++column_number(): Integer
+.. Сеттеры ..
+#table=(Array)
+#row_number=(Integer)
+#column_number=(Integer)
+}
+
+class DataList
+{
+obj_list: Array
+selected_items: Array
+--
+-initialize(Array)
++select(Array)
++get_selected(): Array
+#get_names()
+#get_data(): DataTable
+#get_fields(Object): Array
+
+.. Геттеры ..
+#selected_items(): Array
+#obj_list(): Array
+.. Сеттеры ..
+#selected_items=(Array)
++obj_list=(Array)
+
+}
+
+class DataListStudentShort extends DataList
+{
++initialize(Array)
++get_names(): Array
+#get_fields(Object): Array
+}
+
+class BaseStudentList
+{
+students: Array
+type_class: StudentListStrategy
+--
++initialize()
++read_file(String)
++write_to_file(String)
++get_student_by_id(Integer):Student
++get_n_k_student_short_list(Integer, Integer, DataList): DataListStudentShort
++sorted_by_name()
++add_student(Student)
++replace_student_by_id(Student, Integer)
++delete_student_by_id(Integer)
++get_student_short_count:Integer
+-get_student_new_id
+..Геттеры..
+-students:Array
+-type_class():StudentListStrategy
+..Сеттеры..
+-students=(Array)
++type_class=(StudentListStrategy)
+}
+
+class StudentListStrategy
+{
+-initialize()
+#list_hash_from_str(String):Array
+#list_hash_to_str(Array):String
+}
+
+class StudentListJSON extends StudentListStrategy
+{
++initialize()
++list_hash_from_str(String):Array
++list_has_to_str(Array):String
+}
+
+class StudentListYaml extends StudentListStrategy
+{
++initialize()
++list_hash_from_str(String):Array
++list_has_to_str(Array):String
+}
+
+class DB
+{
+instance: DB
+db:: SQLite3:: Database
+--
++initialize()
++instance():DB
++execute(String, Array)
+results_as_hash=(Boolean)
+}
+
+
+class StudentListFileAdapter
+{
+file: BaseStudentList
+file_path: String
+--
++initialize(data_adapter)
++get_student_by_id(Integer):Student
++add_student(Student)
++remove_student(Integer)
++replace_student(Integer, Student)
++student_count():Integer
++get_k_n_student_short_list(Integer, IntegerM DataList=nil): DataListStudentShort
+}
+
+class StudentListDBAdapter
+{
+db: DB
+--
++initialize()
++get_student_by_id(Integer):Student
++add_student(Student)
++remove_student(Integer)
++replace_student(Integer, Student)
++student_count():Integer
++get_k_n_student_short_list(Integer, IntegerM DataList=nil): DataListStudentShort
+-students_fields(Student):Array
+--Геттеры--
+-db(): DB
+--Сеттеры--
+-db=(DB)
+}
+
+class StudentList
+{
+data_adapter
+--
++initialize(data_adapter)
++get_student_by_id(Integer):Student
++add_student(Student)
++remove_student(Integer)
++replace_student(Integer, Student)
++student_count():Integer
++get_k_n_student_short_list(Integer, IntegerM DataList=nil): DataListStudentShort
+}
+
+class StudentListController
+{
+view: Window
+data_list: DataListStundentShort
+student_list: StudentList
+--
++initialize(Window)
++refresh_data(Integer,Integer)
+-show_dialog(AddStudentController)
++student_add()
++student_change(Integerr, ChangeStudentController)
++student_change_name(Integer)
++student_change_git(Integer)
++student_change_contact(Integer)
++student_delete(Array)
+}
+
+class Window
+{
+students_on_page: Integer
+current_page: Integer
+count_student: Integer
+contruller: StudentListController
+first_tab: FXHorizontalFrame
+page_level: FXLabel
+filter: Hash
+table: FXTable
+--
++initialize(FXApp)
++create()
++update_count_students(Integer)
++on_datalist_changed(DataTable)
+-create_tabs()
+-first_tab()
+-add_filters()
+-add_table()
+-add_crud(FXFrame)
+-page_change_buttons(FXFrame)
+-sort_table_by_column(FXTable, Integer)
+-create_radio_group(Hash, FXFrame)
++refresh()
+-update_page_label()
+}
+
+class AddStudentController
+{
+view: CreateStudentDialog
+student_list: StudentList
+--
++initalize(StudentList)
++add_view(CreateStudentController)
++validate_fields(Hash): Student
++execute()
++save_student(Student
+}
+
+class CreateStudentDialog
+{
+controller
+student: Student
+field_text: Hash
+--
++initialize(Window, AddStudentController)
++set_student(Student)
+-add_fields()
+-enter_student
+}
+
+class ChangeStudentController extends AddStudentController
+{
+student_id: Integer
+--
+-initialize(StudentList, Integer)
++add_view(CreateStudentDialog)
++save_student(Student)
+-get_editable_fiels()
+}
+
+class ChangeStudentNameController extends ChangeStudentController
+{
++initialize(StudentList, Integer)
+-get_editable_fields(): Array
+}
+
+class ChangeStudentGitController extends ChangeStudentController
+{
++initialize(StudentList, Integer)
+-get_editable_fields(): Array
+}
+
+class ChangeStudentContactController extends ChangeStudentController
+{
++initialize(StudentList, Integer)
+-get_editable_fields(): Array
+}
+
+
+ChangeStudentController --* CreateStudentDialog
+ChangeStudentController *-- CreateStudentDialog
+CreateStudentDialog --* AddStudentController
+CreateStudentDialog *-- AddStudentController
+StudentListController --* Window
+Window --* StudentListController
+StudentList --> DataList
+StudentList --o StudentListController
+DataList --o StudentListController
+StudentListFileAdapter --* StudentList
+BaseStudentList --o StudentListFileAdapter
+DB --o StudentListDBAdapter
+DataListStudentShort o-- StudentShort
+DataTable <.. DataList
+BaseStudentList *-- StudentListStrategy
+StudentList *-- StudentListDBAdapter
